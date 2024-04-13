@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ClientScheduler.Models
+namespace AppointmentSchedule.Models
 {
     public enum Status
     {
@@ -23,7 +23,7 @@ namespace ClientScheduler.Models
         //[DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}", ApplyFormatInEditMode = true)]  //////changed from this and fixed. //////DELETE
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime AppointmentDateTime { get; set; }  //info in creating a more complex data model /////////////DELETE
-        public string TextBox { get; set; }
+        public string TextBox { get; set; } //for text comments 
         public virtual Worker Worker { get; set; }
         public virtual Client Client { get; set; }
     }

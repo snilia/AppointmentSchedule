@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ClientScheduler.Models
+namespace AppointmentSchedule.Models
 {
     public class Client : Person
     {
