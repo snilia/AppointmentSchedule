@@ -22,5 +22,7 @@ namespace AppointmentSchedule.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public System.Data.Entity.DbSet<AppointmentSchedule.ViewModels.LoginVM> LoginVMs { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.Controllers
 {
+    [Authorize]
     public class ClientController : Controller
     {
         private AppSchContext db = new AppSchContext();

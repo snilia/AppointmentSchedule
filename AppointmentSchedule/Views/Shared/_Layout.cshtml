@@ -29,6 +29,16 @@
                     <li>@Html.ActionLink("Users", "Index", "User")</li>
                     <li>@Html.ActionLink("Roles", "Index", "Role")</li>
                     <li>@Html.ActionLink("UserRoleMaps", "Index", "UserRoleMap")</li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a>Hello - @User.Identity.Name</a></li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                    }
                 </ul>
             </div>
         </div>
