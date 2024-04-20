@@ -12,22 +12,26 @@ namespace AppointmentSchedule.Controllers
 {
     public class AccountController : Controller
     {
+        private AppSchContext db = new AppSchContext();
         // GET: Account
         public ActionResult Index()
         {
             return View();
         }
 
+        // GET: Account/Login
         public ActionResult Login()
         {
             return View();
         }
+
+        // Post: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginVM model)
         {
-            using (AppSchContext db = new AppSchContext())
-            {
+           // using (AppSchContext db = new AppSchContext())
+           // {
                 bool IsValidUser = db.Users.Any(user => user.Username.ToLower() ==
                      model.Username.ToLower() && user.Password == model.Password);
                 if (IsValidUser) //if username and password correct, make an authcookie
@@ -37,13 +41,35 @@ namespace AppointmentSchedule.Controllers
                 }
                 ModelState.AddModelError("", "invalid Username or Password");
                 return View();
-            }
+           // }
         }
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+        /*
+        // GET: Account/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+       
+        // POST: Account/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "LastName,FirstName,PhoneNumber")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(user); // set which view is shown if can't create i guess ///////////
+        }
+        */
         /*
         [Authorize]
         public ActionResult Signup()
@@ -55,11 +81,11 @@ namespace AppointmentSchedule.Controllers
         [Authorize]
         public ActionResult Signup(User model)
         {
-            using (AppSchContext db = new AppSchContext())
-            {
+         //   using (AppSchContext db = new AppSchContext())
+         //   {
                 db.Users.Add(model);
                 db.SaveChanges();
-            }
+         //   }
             return RedirectToAction("Login");
         }
         */

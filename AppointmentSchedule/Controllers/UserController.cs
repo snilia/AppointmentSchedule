@@ -11,112 +11,142 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.Controllers
 {
-    [Authorize]
-    public class ClientController : Controller
+    public class UserController : Controller
     {
         private AppSchContext db = new AppSchContext();
 
-        // GET: Client
+        // GET: User
         public ActionResult Index()
         {
-            return View(db.Clients.ToList());
+            return View(db.Users.ToList());
         }
 
-        // GET: Client/Details/5
+        // GET: User/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(user);
         }
 
-        // GET: Client/Create
+        // GET: User/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Client/Create
+        // POST: User/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName,FirstName,PhoneNumber")] Client client)
+        public ActionResult Create([Bind(Include = "IsActive,Username,Password")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Clients.Add(client);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(client);
+            return View(user);
         }
 
-        // GET: Client/Edit/5
+        // GET: User/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(user);
         }
 
-        // POST: Client/Edit/5
+        // POST: User/Edit/5
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var userToUpdate = db.Users.Find(id);
+            if (TryUpdateModel(userToUpdate, "",
+               new string[] { "IsActive", "Username", "Password" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    //  return RedirectToAction("Index");  ////////deleted to make it return the user details//////////////delete line
+                    //return View(userToUpdate);///////////////////////////////////////////////////////////////////////////delete line
+                    return RedirectToAction("Details", new { id = id });
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(userToUpdate);
+        }
+        /* old POST edit
+        // POST: User/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LastName,FirstName,PhoneNumber")] Client client)
+        public ActionResult Edit([Bind(Include = "IsActive,Username,Password")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(client);
+            return View(user);
         }
-
-        // GET: Client/Delete/5
+        */
+        /*  no deleting users
+        // GET: User/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(user);
         }
 
-        // POST: Client/Delete/5
+        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)
