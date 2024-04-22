@@ -9,7 +9,7 @@ namespace AppointmentSchedule.ViewModels
 {
     public class LoginVM
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }  //pretty sure i dont need an ID here, gpt agrees it seems//
         [Required]
         public string Username { get; set; }
         [Required]

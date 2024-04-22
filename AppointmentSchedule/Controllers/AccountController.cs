@@ -13,11 +13,12 @@ namespace AppointmentSchedule.Controllers
     public class AccountController : Controller
     {
         private AppSchContext db = new AppSchContext();
-        // GET: Account
-        public ActionResult Index()
-        {
-            return View();
-        }
+
+        // GET: Account.  probably dont need it
+       // public ActionResult Index()
+       // {
+       //     return View();
+       // }
 
         // GET: Account/Login
         public ActionResult Login()
@@ -36,7 +37,7 @@ namespace AppointmentSchedule.Controllers
                      model.Username.ToLower() && user.Password == model.Password);
                 if (IsValidUser) //if username and password correct, make an authcookie
                 {
-                    FormsAuthentication.SetAuthCookie(model.Username, false);  //passes username to the cookie... unsafe?!///////////////////
+                    FormsAuthentication.SetAuthCookie(model.Username, false);  //passes username to the cookie... unsafe?! gp uses it too, so probably fine///////////////////
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "invalid Username or Password");
