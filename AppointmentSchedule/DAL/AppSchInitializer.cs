@@ -7,7 +7,8 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.DAL
 {
-    public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppSchContext>
+    //public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppSchContext>
+    public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppSchContext>
     {
         protected override void Seed(AppSchContext context)
         {
@@ -62,7 +63,14 @@ namespace AppointmentSchedule.DAL
                 new User{IsActive=true,Username="Admin",Password="Admin"},
                 new User{IsActive=true,Username="Username2",Password="Password2"},
                 new User{IsActive=true,Username="Username3",Password="Password3"},
-                new User{IsActive=true,Username="Username4",Password="Password4"}
+                new User{IsActive=true,Username="Username4",Password="Password4"},
+                new User{IsActive=true,Username="RoleAdmin",Password="RoleAdmin"},
+                new User{IsActive=true,Username="RoleUserControl",Password="RoleUserControl"},
+                new User{IsActive=true,Username="RoleAppointmentControl",Password="RoleAppointmentControl"},
+                new User{IsActive=true,Username="RoleAppointmentEnd",Password="RoleAppointmentEnd"},
+                new User{IsActive=true,Username="RoleClientControl",Password="RoleClientControl"},
+                new User{IsActive=true,Username="RoleWorkerControl",Password="RoleWorkerControl"}
+
             };
             users.ForEach(s => context.Users.Add(s));
             context.SaveChanges();
@@ -95,7 +103,14 @@ namespace AppointmentSchedule.DAL
                 new UserRoleMap{UserID=3,RoleID=3},
                 new UserRoleMap{UserID=3,RoleID=4},
                 new UserRoleMap{UserID=3,RoleID=5},
-                new UserRoleMap{UserID=4,RoleID=5}
+                new UserRoleMap{UserID=4,RoleID=5},
+                new UserRoleMap{UserID=5,RoleID=1},
+                new UserRoleMap{UserID=6,RoleID=2},
+                new UserRoleMap{UserID=7,RoleID=3},
+                new UserRoleMap{UserID=8,RoleID=4},
+                new UserRoleMap{UserID=9,RoleID=5},
+                new UserRoleMap{UserID=10,RoleID=6}
+
             };
             userRoleMaps.ForEach(s => context.UserRoleMaps.Add(s));
             context.SaveChanges();

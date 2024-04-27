@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AppointmentSchedule.DAL;
 using AppointmentSchedule.Models;
+using AppointmentSchedule.ViewModels;
 
 namespace AppointmentSchedule.Controllers
 {
@@ -24,17 +25,24 @@ namespace AppointmentSchedule.Controllers
         // GET: User/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
+            var user = db.Users.Include("UserRoleMaps.Role").FirstOrDefault(u => u.ID == id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+
+            var viewModel = new UserDetailsVM
+            {
+                ID = user.ID,
+                Username = user.Username,
+                Password = user.Password,  // Decide if i want to keep password here /////////////
+                IsActive = user.IsActive,
+                Roles = user.UserRoleMaps.Select(ur => ur.Role.RoleName).ToList()
+            };
+
+            return View(viewModel);
         }
+
 
         // GET: User/Create
         public ActionResult Create()
@@ -58,7 +66,7 @@ namespace AppointmentSchedule.Controllers
 
             return View(user);
         }
-
+      
         // GET: User/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -66,60 +74,83 @@ namespace AppointmentSchedule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+
+            var user = db.Users.Include("UserRoleMaps.Role").FirstOrDefault(u => u.ID == id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+
+            //list of roles the user currently has
+            var userRoles = user.UserRoleMaps.Select(ur => ur.Role.RoleName).ToList();
+
+
+            var allRoles = db.Roles.ToList().Select(role => new SelectListItem
+            {
+                Value = role.RoleName,
+                Text = role.RoleName,
+                Selected = userRoles.Contains(role.RoleName)  // Set Selected based on whether the role is one of the user's current roles////////
+            }).ToList();
+
+            var viewModel = new UserEditVM
+            {
+                ID = user.ID,
+                Username = user.Username,
+                Password = user.Password, // Password, not sure if to display////////////////////
+                IsActive = user.IsActive,
+                SelectedRoles = userRoles,
+                AvailableRoles = allRoles
+            };
+
+            return View(viewModel);
         }
 
         // POST: User/Edit/5
-        [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var userToUpdate = db.Users.Find(id);
-            if (TryUpdateModel(userToUpdate, "",
-               new string[] { "IsActive", "Username", "Password" }))
-            {
-                try
-                {
-                    db.SaveChanges();
-
-                    //  return RedirectToAction("Index");  ////////deleted to make it return the user details//////////////delete line
-                    //return View(userToUpdate);///////////////////////////////////////////////////////////////////////////delete line
-                    return RedirectToAction("Details", new { id = id });
-                }
-                catch (DataException /* dex */)
-                {
-                    //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
-            }
-            return View(userToUpdate);
-        }
-        /* old POST edit
-        // POST: User/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IsActive,Username,Password")] User user)
+        public ActionResult Edit(UserEditVM viewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                var user = db.Users.Include("UserRoleMaps.Role").FirstOrDefault(u => u.ID == viewModel.ID);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Update user details
+                user.Username = viewModel.Username;
+                user.Password = viewModel.Password; // Password, not sure if to have it here/////////////
+                user.IsActive = viewModel.IsActive;
+
+                // Remove all roles from user
+                foreach (var roleMap in user.UserRoleMaps.ToList())
+                {
+                    db.UserRoleMaps.Remove(roleMap); // Removing UserRoleMap entity completely
+                }
+
+                //add selected roles to user
+                var newRoles = db.Roles.Where(r => viewModel.SelectedRoles.Contains(r.RoleName)).ToList();
+                foreach (var role in newRoles)
+                {
+                    user.UserRoleMaps.Add(new UserRoleMap { User = user, Role = role });
+                }
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = user.ID });
             }
-            return View(user);
+
+            // If failed, redisplay form
+            viewModel.AvailableRoles = db.Roles.Select(r => new SelectListItem
+            {
+                Value = r.RoleName,
+                Text = r.RoleName,
+                Selected = viewModel.SelectedRoles.Contains(r.RoleName)
+            }).ToList();
+
+            return View(viewModel);
         }
-        */
+
         /*  no deleting users
         // GET: User/Delete/5
         public ActionResult Delete(int? id)

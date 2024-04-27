@@ -11,12 +11,13 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.Controllers
 {
-    [Authorize]
+    
     public class ClientController : Controller
     {
         private AppSchContext db = new AppSchContext();
 
         // GET: Client
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Clients.ToList());
