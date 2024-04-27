@@ -26,18 +26,17 @@ namespace AppointmentSchedule.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginVM model)
         {
-           // using (AppSchContext db = new AppSchContext())
-           // {
-                bool IsValidUser = db.Users.Any(user => user.Username.ToLower() ==
-                     model.Username.ToLower() && user.Password == model.Password);
-                if (IsValidUser) //if username and password correct, make an authcookie
-                {
-                    FormsAuthentication.SetAuthCookie(model.Username, false);  //passes username to the cookie... unsafe?! gp uses it too, so probably fine///////////////////
-                    return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", "invalid Username or Password");
-                return View();
-           // }
+            //find user by name
+            var user = db.Users.FirstOrDefault(u => u.Username.ToLower() == model.Username.ToLower());
+            
+            //if username and passowrd are correct, and the user is active, log in (make a cookie)
+            if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.Password) && user.IsActive) 
+            {
+                FormsAuthentication.SetAuthCookie(model.Username, false);  //creates cookie
+                return RedirectToAction("Index", "Home");
+            }
+            ModelState.AddModelError("", "invalid Username or Password");
+            return View();
         }
         public ActionResult Logout()
         {

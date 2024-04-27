@@ -19,7 +19,10 @@ namespace AppointmentSchedule.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            //list all users except for admin
+            var users = db.Users.Where(u => u.Username != "Admin").ToList();
+            return View(users);
+            //return View(db.Users.ToList());
         }
 
         // GET: User/Details/5
@@ -59,6 +62,7 @@ namespace AppointmentSchedule.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password); // hash password
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,7 +100,7 @@ namespace AppointmentSchedule.Controllers
             {
                 ID = user.ID,
                 Username = user.Username,
-                Password = user.Password, // Password, not sure if to display////////////////////
+                Password = null, // Password, not sure if to display////////////////////
                 IsActive = user.IsActive,
                 SelectedRoles = userRoles,
                 AvailableRoles = allRoles
@@ -120,7 +124,11 @@ namespace AppointmentSchedule.Controllers
 
                 // Update user details
                 user.Username = viewModel.Username;
-                user.Password = viewModel.Password; // Password, not sure if to have it here/////////////
+                //user.Password = viewModel.Password; // Password, not sure if to have it here/////////////
+                if (!string.IsNullOrEmpty(viewModel.Password))
+                {
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(viewModel.Password); //hash password
+                }
                 user.IsActive = viewModel.IsActive;
 
                 // Remove all roles from user

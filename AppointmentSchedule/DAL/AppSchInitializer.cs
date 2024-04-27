@@ -7,8 +7,8 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.DAL
 {
-    //public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppSchContext>
-    public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppSchContext>
+    public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppSchContext>
+    //public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppSchContext>
     {
         protected override void Seed(AppSchContext context)
         {
@@ -60,16 +60,16 @@ namespace AppointmentSchedule.DAL
 
             var users = new List<User>
             {
-                new User{IsActive=true,Username="Admin",Password="Admin"},
-                new User{IsActive=true,Username="Username2",Password="Password2"},
-                new User{IsActive=true,Username="Username3",Password="Password3"},
-                new User{IsActive=true,Username="Username4",Password="Password4"},
-                new User{IsActive=true,Username="RoleAdmin",Password="RoleAdmin"},
-                new User{IsActive=true,Username="RoleUserControl",Password="RoleUserControl"},
-                new User{IsActive=true,Username="RoleAppointmentControl",Password="RoleAppointmentControl"},
-                new User{IsActive=true,Username="RoleAppointmentEnd",Password="RoleAppointmentEnd"},
-                new User{IsActive=true,Username="RoleClientControl",Password="RoleClientControl"},
-                new User{IsActive=true,Username="RoleWorkerControl",Password="RoleWorkerControl"}
+                new User{IsActive=true,Username="Admin",Password=BCrypt.Net.BCrypt.HashPassword("Admin")},
+                new User{IsActive=true,Username="Username2",Password=BCrypt.Net.BCrypt.HashPassword("Password2")},
+                new User{IsActive=true,Username="Username3",Password=BCrypt.Net.BCrypt.HashPassword("Password3")},
+                new User{IsActive=true,Username="Username4",Password=BCrypt.Net.BCrypt.HashPassword("Password4")},
+                new User{IsActive=true,Username="RoleAdmin",Password=BCrypt.Net.BCrypt.HashPassword("RoleAdmin")},
+                new User{IsActive=true,Username="RoleUserControl",Password=BCrypt.Net.BCrypt.HashPassword("RoleUserControl")},
+                new User{IsActive=true,Username="RoleAppointmentControl",Password=BCrypt.Net.BCrypt.HashPassword("RoleAppointmentControl")},
+                new User{IsActive=true,Username="RoleAppointmentEnd",Password=BCrypt.Net.BCrypt.HashPassword("RoleAppointmentEnd")},
+                new User{IsActive=true,Username="RoleClientControl",Password=BCrypt.Net.BCrypt.HashPassword("RoleClientControl")},
+                new User{IsActive=true,Username="RoleWorkerControl",Password=BCrypt.Net.BCrypt.HashPassword("RoleWorkerControl")}
 
             };
             users.ForEach(s => context.Users.Add(s));
