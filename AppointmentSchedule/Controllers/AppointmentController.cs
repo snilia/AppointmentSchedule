@@ -11,109 +11,116 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.Controllers
 {
-    
-    public class ClientController : Controller
+    public class AppointmentController : Controller
     {
         private AppSchContext db = new AppSchContext();
 
-        // GET: Client
-        //[Authorize(Roles = "Admin")]
+        // GET: Appointment
         public ActionResult Index()
         {
-            return View(db.Clients.ToList());
+            var appointments = db.Appointments.Include(a => a.Client).Include(a => a.Worker);
+            return View(appointments.ToList());
         }
 
-        // GET: Client/Details/5
+        // GET: Appointment/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+            Appointment appointment = db.Appointments.Find(id);
+            if (appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(appointment);
         }
 
-        // GET: Client/Create
+        // GET: Appointment/Create
         public ActionResult Create()
         {
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName");
+            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName");
             return View();
         }
 
-        // POST: Client/Create
+        // POST: Appointment/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LastName,FirstName,PhoneNumber")] Client client)
+        public ActionResult Create([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,TextBox")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
-                db.Clients.Add(client);
+                db.Appointments.Add(appointment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(client);
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
+            return View(appointment);
         }
 
-        // GET: Client/Edit/5
+        // GET: Appointment/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+            Appointment appointment = db.Appointments.Find(id);
+            if (appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
+            return View(appointment);
         }
 
-        // POST: Client/Edit/5
+        // POST: Appointment/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,LastName,FirstName,PhoneNumber")] Client client)  
+        public ActionResult Edit([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,TextBox")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
+                db.Entry(appointment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(client);
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
+            return View(appointment);
         }
 
-        // GET: Client/Delete/5
+        // GET: Appointment/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Clients.Find(id);
-            if (client == null)
+            Appointment appointment = db.Appointments.Find(id);
+            if (appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(appointment);
         }
 
-        // POST: Client/Delete/5
+        // POST: Appointment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
+            Appointment appointment = db.Appointments.Find(id);
+            db.Appointments.Remove(appointment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
