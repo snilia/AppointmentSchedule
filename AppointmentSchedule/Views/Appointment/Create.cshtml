@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { onsubmit = "return combineDateTime();" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Appointment</h4>
         <hr />
@@ -39,13 +39,20 @@
             </div>
         </div>
 
+
+        <!--makes a date and a time field, then uses the scrip function at the buttom to combine them into the hidden field which is returned to the controller-->
         <div class="form-group">
-            @Html.LabelFor(model => model.AppointmentDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AppointmentDateTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AppointmentDateTime, "", new { @class = "text-danger" })
+            @Html.Label("Appointment Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="date" id="appointmentDate" class="form-control" />
+            </div>
+            @Html.Label("Appointment Time", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="time" id="appointmentTime" class="form-control" />
             </div>
         </div>
+
+        @Html.HiddenFor(model => model.AppointmentDateTime)
 
         <div class="form-group">
             @Html.LabelFor(model => model.TextBox, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,4 +76,17 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function combineDateTime() {
+            var date = document.getElementById('appointmentDate').value;
+            var time = document.getElementById('appointmentTime').value;
+            if (date && time) {
+                var dateTime = date + ' ' + time;
+                document.getElementById('@Html.IdFor(model => model.AppointmentDateTime)').value = dateTime;
+                return true; // Ensure the form submits
+            }
+            alert("Please make sure both the date and time are provided.");
+            return false; // Prevent submission if date or time are missing
+        }
+    </script>
 }

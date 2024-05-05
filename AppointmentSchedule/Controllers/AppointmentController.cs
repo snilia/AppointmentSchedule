@@ -125,6 +125,23 @@ namespace AppointmentSchedule.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        //[Route("Appointment/GetWorkerAppointments")]   //needed???? if works delete line 
+
+        public JsonResult GetWorkerAppointments(int workerId, DateTime start, DateTime end)
+        {
+            var appointments = db.Appointments
+                .Where(a => a.WorkerID == workerId && a.AppointmentDateTime >= start && a.AppointmentDateTime <= end)
+                .Select(a => new {
+                    title = a.Client.LastName + ", " + a.Client.FirstName,
+                    start = a.AppointmentDateTime,
+                    allDay = false  // Assuming these are not all-day events
+        }).ToList();
+
+            return Json(appointments, JsonRequestBehavior.AllowGet);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
