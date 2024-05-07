@@ -24,34 +24,40 @@
             @Html.DisplayNameFor(model => model.AppointmentDateTime)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.LengthInHours)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.TextBox)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Client.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Worker.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AppointmentDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TextBox)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Client.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Worker.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AppointmentDateTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LengthInHours)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TextBox)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
 }
 
 </table>

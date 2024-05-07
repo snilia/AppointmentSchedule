@@ -50,7 +50,7 @@ namespace AppointmentSchedule.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,TextBox")] Appointment appointment)
+        public ActionResult Create([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,LengthInHours,TextBox")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace AppointmentSchedule.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,TextBox")] Appointment appointment)
+        public ActionResult Edit([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,LengthInHours,TextBox")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
@@ -135,7 +135,8 @@ namespace AppointmentSchedule.Controllers
                 .Select(a => new {
                     title = a.Client.LastName + ", " + a.Client.FirstName,
                     start = a.AppointmentDateTime,
-                    allDay = false  // Assuming these are not all-day events
+                 //   allDay = false  // Assuming these are not all-day events
+                    end = DbFunctions.AddHours(a.AppointmentDateTime, a.LengthInHours) // Calculate end time
         }).ToList();
 
             return Json(appointments, JsonRequestBehavior.AllowGet);

@@ -19,9 +19,13 @@ namespace AppointmentSchedule.Models
         [ForeignKey("Client")] //AIdded   //DELETE
         public int? ClientID { get; set; }
         public Status? Status { get; set; }  //question mark means it's nullable //////////////
+        [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime AppointmentDateTime { get; set; }  //info in creating a more complex data model /////////////DELETE
+        [Required]
+        [Range(1, 5, ErrorMessage = "Appointment length must be between 1 and 5 hours.")]
+        public int LengthInHours { get; set; } //the length of the appointment in hours
         public string TextBox { get; set; } //for text comments 
         public virtual Worker Worker { get; set; }
         public virtual Client Client { get; set; }
