@@ -44,7 +44,25 @@ namespace AppointmentSchedule.Controllers
             ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName");
             return View();
         }
-
+        /*
+        public ActionResult Create(int? workerId, DateTime? start, DateTime? end)
+        {
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName");
+            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName");
+            // Create a new appointment model and pre-populate dates if provided
+            var appointment = new Appointment();
+            if (start.HasValue)
+            {
+                appointment.AppointmentDateTime = start.Value;
+            }
+            if (end.HasValue)
+            {
+                // Optionally handle the end time if your model supports it
+                // For instance, you might calculate the duration based on the end time
+            }
+            return View(appointment);
+        }
+        */
         // POST: Appointment/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -125,23 +143,33 @@ namespace AppointmentSchedule.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        //[Route("Appointment/GetWorkerAppointments")]   //needed???? if works delete line 
+        [HttpGet] 
+        public ActionResult WorkerSchedule(int workerId)
+        {
+            Worker worker = db.Workers.Find(workerId);
+            ViewBag.WorkerId = workerId; 
+            ViewBag.WorkerName = worker.FirstName + " " + worker.LastName;
+            return View();
+        }
 
+        [HttpGet]
         public JsonResult GetWorkerAppointments(int workerId, DateTime start, DateTime end)
         {
+            //calculates timezone difference, because Json sirialization doesnt take that into account
+            TimeZoneInfo israelTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time");
+            int timezoneToAdd = (int)israelTimeZone.GetUtcOffset(DateTime.UtcNow).TotalHours; 
+
             var appointments = db.Appointments
                 .Where(a => a.WorkerID == workerId && a.AppointmentDateTime >= start && a.AppointmentDateTime <= end)
                 .Select(a => new {
-                    title = a.Client.LastName + ", " + a.Client.FirstName,
-                    start = a.AppointmentDateTime,
-                 //   allDay = false  // Assuming these are not all-day events
-                    end = DbFunctions.AddHours(a.AppointmentDateTime, a.LengthInHours) // Calculate end time
-        }).ToList();
+                    id = a.ID,
+                    title = a.Client.FirstName + " " + a.Client.LastName,
+                    start = DbFunctions.AddHours(a.AppointmentDateTime, timezoneToAdd),
+                    end = DbFunctions.AddHours(a.AppointmentDateTime, a.LengthInHours + timezoneToAdd) 
+                    }).ToList();
 
             return Json(appointments, JsonRequestBehavior.AllowGet);
         }
-
 
         protected override void Dispose(bool disposing)
         {

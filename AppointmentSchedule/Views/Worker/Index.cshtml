@@ -23,7 +23,8 @@
         <th>
             @Html.DisplayNameFor(model => model.IsActive)
         </th>
-        <th></th>
+        <th>Actions</th>
+        <th>Schedule</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -44,6 +45,9 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+        <td>
+            @Html.ActionLink("View Schedule", "WorkerSchedule", "Appointment", new { workerId = item.ID }, null)
         </td>
     </tr>
 }

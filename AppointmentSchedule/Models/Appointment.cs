@@ -22,7 +22,7 @@ namespace AppointmentSchedule.Models
         [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
-        public DateTime AppointmentDateTime { get; set; }  //info in creating a more complex data model /////////////DELETE
+        public DateTime AppointmentDateTime { get; set; }
         [Required]
         [Range(1, 5, ErrorMessage = "Appointment length must be between 1 and 5 hours.")]
         public int LengthInHours { get; set; } //the length of the appointment in hours

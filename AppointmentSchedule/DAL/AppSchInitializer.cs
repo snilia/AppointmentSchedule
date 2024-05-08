@@ -7,8 +7,8 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.DAL
 {
-    public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppSchContext>
-    //public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppSchContext>
+    //public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppSchContext>
+    public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppSchContext>
     {
         protected override void Seed(AppSchContext context)
         {
@@ -73,7 +73,77 @@ namespace AppointmentSchedule.DAL
                 new Appointment{ClientID=1, WorkerID=12, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2020,3,15,9,43,00), LengthInHours=1, TextBox="10 it is"},
                 new Appointment{ClientID=2, WorkerID=9, Status=Status.Pending, AppointmentDateTime=new DateTime(2020,3,16,9,43,00), LengthInHours=3},
                 new Appointment{ClientID=1, WorkerID=11, Status=Status.Pending, AppointmentDateTime=new DateTime(2020,3,17,9,43,00), LengthInHours=2},
-                new Appointment{ClientID=4, WorkerID=10, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2020,3,17,9,43,00), LengthInHours=5, TextBox="wordswordswords"}
+                new Appointment{ClientID=4, WorkerID=10, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2020,3,17,9,43,00), LengthInHours=5, TextBox="wordswordswords"},//AI GENERATED from here on
+                new Appointment{ClientID=1, WorkerID=8, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,5,9,30,00), LengthInHours=2, TextBox="Appointment 1"},
+                new Appointment{ClientID=2, WorkerID=9, Status=Status.Canceled, AppointmentDateTime=new DateTime(2024,5,5,12,00,00), LengthInHours=3, TextBox="Appointment 2"},
+                new Appointment{ClientID=3, WorkerID=10, Status=Status.NoShow, AppointmentDateTime=new DateTime(2024,5,6,10,15,00), LengthInHours=1, TextBox="Appointment 3"},
+                new Appointment{ClientID=4, WorkerID=11, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,6,14,45,00), LengthInHours=4, TextBox="Appointment 4"},
+                new Appointment{ClientID=5, WorkerID=12, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,7,11,30,00), LengthInHours=2, TextBox="Appointment 5"},
+                new Appointment{ClientID=6, WorkerID=8, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,7,13,00,00), LengthInHours=3, TextBox="Appointment 6"},
+                new Appointment{ClientID=1, WorkerID=9, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,8,10,30,00), LengthInHours=1, TextBox="Appointment 7"},
+                new Appointment{ClientID=2, WorkerID=10, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,8,12,45,00), LengthInHours=5, TextBox="Appointment 8"},
+                new Appointment{ClientID=3, WorkerID=11, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,9,9,00,00), LengthInHours=3, TextBox="Appointment 9"},
+                new Appointment{ClientID=4, WorkerID=12, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,10,10,15,00), LengthInHours=2, TextBox="Appointment 10"},
+                new Appointment{ClientID=5, WorkerID=8, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,10,14,00,00), LengthInHours=3, TextBox="Appointment 11"},
+                new Appointment{ClientID=6, WorkerID=9, Status=Status.Canceled, AppointmentDateTime=new DateTime(2024,5,11,9,30,00), LengthInHours=2, TextBox="Appointment 12"},
+                new Appointment{ClientID=1, WorkerID=10, Status=Status.NoShow, AppointmentDateTime=new DateTime(2024,5,11,12,15,00), LengthInHours=1, TextBox="Appointment 13"},
+                new Appointment{ClientID=2, WorkerID=11, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,11,15,45,00), LengthInHours=4, TextBox="Appointment 14"},
+                new Appointment{ClientID=3, WorkerID=12, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,11,10,30,00), LengthInHours=2, TextBox="Appointment 15"},
+                new Appointment{ClientID=4, WorkerID=8, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,11,13,00,00), LengthInHours=3, TextBox="Appointment 16"},
+                new Appointment{ClientID=5, WorkerID=9, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,10,10,30,00), LengthInHours=1, TextBox="Appointment 17"},
+                new Appointment{ClientID=6, WorkerID=10, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,10,12,45,00), LengthInHours=5, TextBox="Appointment 18"},
+                new Appointment{ClientID=1, WorkerID=11, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,11,9,00,00), LengthInHours=3, TextBox="Appointment 19"},
+                new Appointment{ClientID=3, WorkerID=8, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,7,14,00,00), LengthInHours=2, TextBox="Appointment 21"},
+                new Appointment{ClientID=4, WorkerID=9, Status=Status.Canceled, AppointmentDateTime=new DateTime(2024,5,8,9,30,00), LengthInHours=3, TextBox="Appointment 22"},
+                new Appointment{ClientID=5, WorkerID=10, Status=Status.NoShow, AppointmentDateTime=new DateTime(2024,5,8,12,15,00), LengthInHours=1, TextBox="Appointment 23"},
+                new Appointment{ClientID=6, WorkerID=11, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,9,15,45,00), LengthInHours=4, TextBox="Appointment 24"},
+                new Appointment{ClientID=1, WorkerID=12, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,10,10,30,00), LengthInHours=2, TextBox="Appointment 25"},
+                new Appointment{ClientID=2, WorkerID=8, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,11,13,00,00), LengthInHours=3, TextBox="Appointment 26"},
+                new Appointment{ClientID=3, WorkerID=9, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,10,30,00), LengthInHours=1, TextBox="Appointment 27"},
+                new Appointment{ClientID=4, WorkerID=10, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,12,45,00), LengthInHours=5, TextBox="Appointment 28"},
+                new Appointment{ClientID=5, WorkerID=11, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,7,9,00,00), LengthInHours=3, TextBox="Appointment 29"},
+                new Appointment{ClientID=6, WorkerID=12, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,8,10,15,00), LengthInHours=2, TextBox="Appointment 30"},
+                new Appointment{ClientID=1, WorkerID=8, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,9,14,00,00), LengthInHours=2, TextBox="Appointment 31"},
+                new Appointment{ClientID=2, WorkerID=9, Status=Status.Canceled, AppointmentDateTime=new DateTime(2024,5,10,9,30,00), LengthInHours=3, TextBox="Appointment 32"},
+                new Appointment{ClientID=3, WorkerID=10, Status=Status.NoShow, AppointmentDateTime=new DateTime(2024,5,10,12,15,00), LengthInHours=1, TextBox="Appointment 33"},
+                new Appointment{ClientID=4, WorkerID=11, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,11,15,45,00), LengthInHours=4, TextBox="Appointment 34"},
+                new Appointment{ClientID=5, WorkerID=12, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,11,10,30,00), LengthInHours=2, TextBox="Appointment 35"},
+                new Appointment{ClientID=6, WorkerID=8, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,11,13,00,00), LengthInHours=3, TextBox="Appointment 36"},
+                new Appointment{ClientID=1, WorkerID=9, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,10,30,00), LengthInHours=1, TextBox="Appointment 37"},
+                new Appointment{ClientID=2, WorkerID=10, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,12,45,00), LengthInHours=5, TextBox="Appointment 38"},
+                new Appointment{ClientID=3, WorkerID=11, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,7,9,00,00), LengthInHours=3, TextBox="Appointment 39"},
+                new Appointment{ClientID=4, WorkerID=12, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,8,10,15,00), LengthInHours=2, TextBox="Appointment 40"},
+                new Appointment{ClientID=5, WorkerID=8, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,9,14,00,00), LengthInHours=2, TextBox="Appointment 41"},
+                new Appointment{ClientID=6, WorkerID=9, Status=Status.Canceled, AppointmentDateTime=new DateTime(2024,5,10,9,30,00), LengthInHours=3, TextBox="Appointment 42"},
+                new Appointment{ClientID=1, WorkerID=10, Status=Status.NoShow, AppointmentDateTime=new DateTime(2024,5,10,12,15,00), LengthInHours=1, TextBox="Appointment 43"},
+                new Appointment{ClientID=2, WorkerID=11, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,11,15,45,00), LengthInHours=4, TextBox="Appointment 44"},
+                new Appointment{ClientID=3, WorkerID=12, Status=Status.Done, AppointmentDateTime=new DateTime(2024,5,11,10,30,00), LengthInHours=2, TextBox="Appointment 45"},
+                new Appointment{ClientID=4, WorkerID=8, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,11,13,00,00), LengthInHours=3, TextBox="Appointment 46"},
+                new Appointment{ClientID=5, WorkerID=9, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,10,30,00), LengthInHours=1, TextBox="Appointment 47"},
+                new Appointment{ClientID=6, WorkerID=10, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,12,45,00), LengthInHours=5, TextBox="Appointment 48"},
+                new Appointment{ClientID=2, WorkerID=12, Status=Status.Confirmed, AppointmentDateTime=new DateTime(2024,5,11,10,15,00), LengthInHours=2, TextBox="Appointment 20"},
+                new Appointment{ClientID=1, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,5,10,00,00), LengthInHours=2, TextBox="Appointment 49"},
+                new Appointment{ClientID=2, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,5,14,00,00), LengthInHours=3, TextBox="Appointment 50"},
+                new Appointment{ClientID=3, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,10,30,00), LengthInHours=1, TextBox="Appointment 51"},
+                new Appointment{ClientID=4, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,12,45,00), LengthInHours=5, TextBox="Appointment 52"},
+                new Appointment{ClientID=5, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,7,9,00,00), LengthInHours=3, TextBox="Appointment 53"},
+                new Appointment{ClientID=6, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,7,14,15,00), LengthInHours=2, TextBox="Appointment 54"},
+                new Appointment{ClientID=1, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,8,11,30,00), LengthInHours=1, TextBox="Appointment 55"},
+                new Appointment{ClientID=2, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,8,13,45,00), LengthInHours=4, TextBox="Appointment 56"},
+                new Appointment{ClientID=3, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,9,9,15,00), LengthInHours=2, TextBox="Appointment 57"},
+                new Appointment{ClientID=4, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,9,13,30,00), LengthInHours=3, TextBox="Appointment 58"},
+                new Appointment{ClientID=5, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,10,10,45,00), LengthInHours=1, TextBox="Appointment 59"},
+                new Appointment{ClientID=6, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,10,12,00,00), LengthInHours=2, TextBox="Appointment 60"},
+                new Appointment{ClientID=1, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,11,10,30,00), LengthInHours=3, TextBox="Appointment 61"},
+                new Appointment{ClientID=2, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,11,14,45,00), LengthInHours=2, TextBox="Appointment 62"},
+                new Appointment{ClientID=3, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,11,16,15,00), LengthInHours=4, TextBox="Appointment 63"},
+                new Appointment{ClientID=4, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,5,12,00,00), LengthInHours=2, TextBox="New Appointment 1"},
+                new Appointment{ClientID=5, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,6,15,00,00), LengthInHours=2, TextBox="New Appointment 2"},
+                new Appointment{ClientID=6, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,8,14,30,00), LengthInHours=3, TextBox="New Appointment 3"},
+                new Appointment{ClientID=1, WorkerID=14, Status=Status.Pending, AppointmentDateTime=new DateTime(2024,5,10,9,30,00), LengthInHours=2, TextBox="New Appointment 4"}
+
+
+
             };
             appointments.ForEach(s => context.Appointments.Add(s));
             context.SaveChanges();

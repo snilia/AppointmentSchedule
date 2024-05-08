@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Worker Schedule";
+}
+
+<h2>Worker Schedule for @ViewBag.WorkerName</h2>
+
+<div id='calendar'></div>
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay'
+                },
+                defaultView: 'agendaWeek',
+                editable: false,  // Set to true if you want to allow dragging and resizing
+                selectable: true,
+                eventLimit: true, // allow "more" link when too many events
+                timeZone: 'Jerusalem',
+                events: function(start, end, timezone, callback) {
+                    $.ajax({
+                        url: '@Url.Action("GetWorkerAppointments", "Appointment", new { workerId = ViewBag.WorkerId })',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            // parameters for the api call
+                            start: start.format(),
+                            end: end.format()
+                        },
+                        success: function(doc) {
+                            var events = [];
+                            $(doc).each(function() {
+                                events.push({
+                                    id: this.id,
+                                    title: this.title,
+                                    start: this.start,
+                                    end: this.end,
+                                    allDay: false
+                                });
+                            });
+                            callback(events);
+                        }
+                    });
+                },
+                eventClick: function(event, element) {
+                    var baseUrl = '@Url.Action("Details", "Appointment")'; //razor generates the base URL
+                    window.location.href = baseUrl + '?id=' + event.id; //javascript adds the ID parameter
+                }
+            });
+        });
+    </script>
+}
