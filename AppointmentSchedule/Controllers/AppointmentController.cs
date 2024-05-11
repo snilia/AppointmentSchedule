@@ -103,7 +103,7 @@ namespace AppointmentSchedule.Controllers
             {
                 db.Entry(appointment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = appointment.ID });
             }
             ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
             ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
