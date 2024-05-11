@@ -53,7 +53,7 @@ namespace AppointmentSchedule.Controllers
             {
                 db.Workers.Add(worker);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = worker.ID });
             }
 
             return View(worker);
@@ -85,7 +85,7 @@ namespace AppointmentSchedule.Controllers
             {
                 db.Entry(worker).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = worker.ID });
             }
             return View(worker);
         }
