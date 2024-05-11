@@ -38,39 +38,31 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Appointment/Create
-        public ActionResult Create()
+        public ActionResult Create(int? workerId)
         {
             ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName");
-            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName");
+
+
+            //active workers only
+            var activeWorkers = db.Workers.Where(w => w.IsActive).ToList();
+
+            if (workerId.HasValue && activeWorkers.Any(w => w.ID == workerId.Value))
+            {
+                ViewBag.WorkerID = new SelectList(activeWorkers, "ID", "LastName", workerId);
+            }
+            else
+            {
+                ViewBag.WorkerID = new SelectList(activeWorkers, "ID", "LastName");
+            }
+
             return View();
         }
-        /*
-        public ActionResult Create(int? workerId, DateTime? start, DateTime? end)
-        {
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName");
-            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName");
-            // Create a new appointment model and pre-populate dates if provided
-            var appointment = new Appointment();
-            if (start.HasValue)
-            {
-                appointment.AppointmentDateTime = start.Value;
-            }
-            if (end.HasValue)
-            {
-                // Optionally handle the end time if your model supports it
-                // For instance, you might calculate the duration based on the end time
-            }
-            return View(appointment);
-        }
-        */
         // POST: Appointment/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,LengthInHours,TextBox")] Appointment appointment)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && db.Workers.Any(w => w.ID == appointment.WorkerID && w.IsActive))
             {
                 db.Appointments.Add(appointment);
                 db.SaveChanges();
@@ -78,7 +70,8 @@ namespace AppointmentSchedule.Controllers
             }
 
             ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
-            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
+            ViewBag.WorkerID = new SelectList(db.Workers.Where(w => w.IsActive), "ID", "LastName", appointment.WorkerID);
+
             return View(appointment);
         }
 

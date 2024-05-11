@@ -5,6 +5,9 @@
 
 <h2>Worker Schedule for @ViewBag.WorkerName</h2>
 
+<button onclick="location.href='@Url.Action("Create", "Appointment", new { WorkerID = ViewBag.WorkerId })'">Add Appointment</button>
+
+
 <div id='calendar'></div>
 
 @section Styles {
