@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AppointmentSchedule.DAL;
 using AppointmentSchedule.Models;
+using AppointmentSchedule.ViewModels;
 
 namespace AppointmentSchedule.Controllers
 {
@@ -108,6 +109,56 @@ namespace AppointmentSchedule.Controllers
             ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
             ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
             return View(appointment);
+        }
+
+        // GET: Appointment/LimitedEdit/5
+        public ActionResult LimitedEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Appointment appointment = db.Appointments.Include(a => a.Worker).Include(a => a.Client).FirstOrDefault(a => a.ID == id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+
+            LimitedEditVM viewModel = new LimitedEditVM
+            {
+                ID = appointment.ID,
+                Status = appointment.Status,
+                TextBox = appointment.TextBox,
+                WorkerFullName = appointment.Worker != null ? appointment.Worker.FirstName + " " + appointment.Worker.LastName : "No worker assigned",
+                ClientFullName = appointment.Client != null ? appointment.Client.FirstName + " " + appointment.Client.LastName : "No client assigned"
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: Appointment/LimitedEdit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LimitedEdit(LimitedEditVM viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Appointment appointment = db.Appointments.Find(viewModel.ID);
+                if (appointment == null)
+                {
+                    return HttpNotFound();
+                }
+
+                appointment.Status = viewModel.Status;
+                appointment.TextBox = viewModel.TextBox;
+
+                db.Entry(appointment).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = appointment.ID });
+            }
+
+            return View(viewModel);
         }
 
         // GET: Appointment/Delete/5

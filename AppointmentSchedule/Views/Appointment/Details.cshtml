@@ -62,6 +62,7 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("LimitedEdit", "LimitedEdit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index") |
     @Html.ActionLink("View worker's schedule", "WorkerSchedule", "Appointment", new { workerId = Model.WorkerID }, null)
 
