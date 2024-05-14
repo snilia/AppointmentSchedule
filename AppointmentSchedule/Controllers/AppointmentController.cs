@@ -76,7 +76,7 @@ namespace AppointmentSchedule.Controllers
             {
                 db.Appointments.Add(appointment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = appointment.ID }); ;
             }
 
             ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
