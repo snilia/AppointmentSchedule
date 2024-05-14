@@ -7,7 +7,6 @@
 
 <button onclick="location.href='@Url.Action("Create", "Appointment", new { ClientID = ViewBag.ClientId })'">Add Appointment</button>
 
-
 <div id='calendar'></div>
 
 @section Styles {
@@ -29,7 +28,7 @@
                 editable: false,
                 selectable: true,
                 eventLimit: true,
-                timeZone: 'Jerusalem',
+                timeZone: 'local', // Changed to 'local' to use the browser's local time zone
                 buttonText: {
                     listYear: 'Year List',
                     listMonth: 'Month List',
@@ -43,6 +42,10 @@
                         url: '@Url.Action("GetClientAppointments", "Appointment", new { clientId = ViewBag.ClientId })',
                         type: 'GET',
                         dataType: 'json',
+                        data: {
+                            start: start.format(), // Add start and end parameters
+                            end: end.format()
+                        },
                         success: function(doc) {
                             var events = [];
                             $(doc).each(function() {

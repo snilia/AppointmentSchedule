@@ -237,13 +237,13 @@ namespace AppointmentSchedule.Controllers
             return View();
         }
 
-        public JsonResult GetClientAppointments(int clientId)
+        public JsonResult GetClientAppointments(int clientId, DateTime start, DateTime end)
         {
             TimeZoneInfo israelTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time");
             int timezoneToAdd = (int)israelTimeZone.GetUtcOffset(DateTime.UtcNow).TotalHours;
 
             var appointments = db.Appointments
-                .Where(a => a.ClientID == clientId && a.AppointmentDateTime.Year == DateTime.Now.Year)
+                .Where(a => a.ClientID == clientId && a.AppointmentDateTime >= start && a.AppointmentDateTime <= end)
                 .Select(a => new {
                     id = a.ID,
                     title = a.Worker.FirstName + " " + a.Worker.LastName,
