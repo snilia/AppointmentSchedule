@@ -22,7 +22,6 @@ namespace AppointmentSchedule.Controllers
             //list all users except for admin
             var users = db.Users.Where(u => u.Username != "Admin").ToList();
             return View(users);
-            //return View(db.Users.ToList());
         }
 
         // GET: User/Details/5
@@ -38,7 +37,7 @@ namespace AppointmentSchedule.Controllers
             {
                 ID = user.ID,
                 Username = user.Username,
-                Password = user.Password,  // Decide if i want to keep password here /////////////
+                Password = user.Password,
                 IsActive = user.IsActive,
                 Roles = user.UserRoleMaps.Select(ur => ur.Role.RoleName).ToList()
             };
