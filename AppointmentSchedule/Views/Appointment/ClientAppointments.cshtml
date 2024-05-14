@@ -1,11 +1,11 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Worker Schedule";
+    ViewBag.Title = "Client Appointments";
 }
 
-<h2>Worker Schedule for @ViewBag.WorkerName</h2>
+<h2>Appointments for @ViewBag.ClientName</h2>
 
-<button onclick="location.href='@Url.Action("Create", "Appointment", new { WorkerID = ViewBag.WorkerId })'">Add Appointment</button>
+<button onclick="location.href='@Url.Action("Create", "Appointment", new { ClientID = ViewBag.ClientId })'">Add Appointment</button>
 
 
 <div id='calendar'></div>
@@ -23,36 +23,26 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'listYear,listMonth,listWeek,agendaWeek,agendaDay'
+                    right: 'listYear,listMonth,month'
                 },
-                defaultView: 'agendaWeek',
-                editable: false,  // Set to true if you want to allow dragging and resizing
+                defaultView: 'month',
+                editable: false,
                 selectable: true,
-                eventLimit: true, // allow "more" link when too many events
+                eventLimit: true,
                 timeZone: 'Jerusalem',
-                minTime: "06:00:00", // start time of the calendar day
-                maxTime: "22:00:00",  // end time of the calendar day
                 buttonText: {
                     listYear: 'Year List',
                     listMonth: 'Month List',
-                    listWeek: 'Week List',
-                    month: 'Month',
-                    agendaWeek: 'Week',
-                    agendaDay: 'Day'
+                    month: 'Month'
                 },
-                timeFormat: 'H:mm',// 24-hour format
-                slotLabelFormat: 'H:mm', // 24-hour format
-                eventTimeFormat: 'H:mm', // 24-hour format
+                timeFormat: 'H:mm',
+                slotLabelFormat: 'H:mm', // 24-hour format for time slots
+                eventTimeFormat: 'H:mm',
                 events: function(start, end, timezone, callback) {
                     $.ajax({
-                        url: '@Url.Action("GetWorkerAppointments", "Appointment", new { workerId = ViewBag.WorkerId })',
+                        url: '@Url.Action("GetClientAppointments", "Appointment", new { clientId = ViewBag.ClientId })',
                         type: 'GET',
                         dataType: 'json',
-                        data: {
-                            // parameters for the api call
-                            start: start.format(),
-                            end: end.format()
-                        },
                         success: function(doc) {
                             var events = [];
                             $(doc).each(function() {
@@ -69,8 +59,8 @@
                     });
                 },
                 eventClick: function(event, element) {
-                    var baseUrl = '@Url.Action("Details", "Appointment")'; //razor generates the base URL
-                    window.location.href = baseUrl + '?id=' + event.id; //javascript adds the ID parameter
+                    var baseUrl = '@Url.Action("Details", "Appointment")';
+                    window.location.href = baseUrl + '/' + event.id;
                 }
             });
         });

@@ -39,10 +39,19 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Appointment/Create
-        public ActionResult Create(int? workerId)
+        public ActionResult Create(int? workerId, int? clientId)
         {
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName");
+            //all clients
+            var clients = db.Clients.ToList();
 
+            if (clientId.HasValue && clients.Any(c => c.ID == clientId.Value))
+            {
+                ViewBag.ClientID = new SelectList(clients, "ID", "LastName", clientId);
+            }
+            else
+            {
+                ViewBag.ClientID = new SelectList(clients, "ID", "LastName");
+            }
 
             //active workers only
             var activeWorkers = db.Workers.Where(w => w.IsActive).ToList();
@@ -211,6 +220,36 @@ namespace AppointmentSchedule.Controllers
                     start = DbFunctions.AddHours(a.AppointmentDateTime, timezoneToAdd),
                     end = DbFunctions.AddHours(a.AppointmentDateTime, a.LengthInHours + timezoneToAdd) 
                     }).ToList();
+
+            return Json(appointments, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ClientAppointments(int clientId)
+        {
+            Client client = db.Clients.Find(clientId);
+            if (client == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.ClientId = clientId;
+            ViewBag.ClientName = client.FirstName + " " + client.LastName;
+            return View();
+        }
+
+        public JsonResult GetClientAppointments(int clientId)
+        {
+            TimeZoneInfo israelTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time");
+            int timezoneToAdd = (int)israelTimeZone.GetUtcOffset(DateTime.UtcNow).TotalHours;
+
+            var appointments = db.Appointments
+                .Where(a => a.ClientID == clientId && a.AppointmentDateTime.Year == DateTime.Now.Year)
+                .Select(a => new {
+                    id = a.ID,
+                    title = a.Worker.FirstName + " " + a.Worker.LastName,
+                    start = DbFunctions.AddHours(a.AppointmentDateTime, timezoneToAdd),
+                    end = DbFunctions.AddHours(a.AppointmentDateTime, a.LengthInHours + timezoneToAdd)
+                }).ToList();
 
             return Json(appointments, JsonRequestBehavior.AllowGet);
         }

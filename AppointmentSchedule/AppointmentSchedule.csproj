@@ -229,6 +229,7 @@
     <Content Include="Views\Appointment\Index.cshtml" />
     <Content Include="Views\Appointment\WorkerSchedule.cshtml" />
     <Content Include="Views\Appointment\LimitedEdit.cshtml" />
+    <Content Include="Views\Appointment\ClientAppointments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
