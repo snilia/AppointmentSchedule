@@ -12,22 +12,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Client.LastName)
+            @Html.Label("Client")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Worker.LastName)
+            @Html.Label("Worker")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AppointmentDateTime)
+            @Html.Label("Date and Time")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LengthInHours)
+            @Html.Label("Length in hours")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TextBox)
+            @Html.Label("Note")
         </th>
         <th></th>
     </tr>
@@ -35,10 +35,10 @@
 @foreach (var item in Model) {
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.Client.LastName)
+        @Html.DisplayFor(modelItem => item.Client.FullName)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Worker.LastName)
+        @Html.DisplayFor(modelItem => item.Worker.FullName)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Status)

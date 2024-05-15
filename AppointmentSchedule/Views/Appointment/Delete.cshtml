@@ -12,19 +12,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Client.LastName)
+            @Html.Label("Client")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Client.LastName)
+            @Html.DisplayFor(model => model.Client.FullName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Worker.LastName)
+            @Html.Label("Worker")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Worker.LastName)
+            @Html.DisplayFor(model => model.Worker.FullName)
         </dd>
 
         <dt>
@@ -52,7 +52,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TextBox)
+            @Html.Label("Note")
         </dt>
 
         <dd>

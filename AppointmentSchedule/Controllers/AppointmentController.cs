@@ -41,32 +41,33 @@ namespace AppointmentSchedule.Controllers
         // GET: Appointment/Create
         public ActionResult Create(int? workerId, int? clientId)
         {
-            //all clients
+            // All clients
             var clients = db.Clients.ToList();
 
             if (clientId.HasValue && clients.Any(c => c.ID == clientId.Value))
             {
-                ViewBag.ClientID = new SelectList(clients, "ID", "LastName", clientId);
+                ViewBag.ClientID = new SelectList(clients, "ID", "FullName", clientId);
             }
             else
             {
-                ViewBag.ClientID = new SelectList(clients, "ID", "LastName");
+                ViewBag.ClientID = new SelectList(clients, "ID", "FullName");
             }
 
-            //active workers only
+            // Active workers only
             var activeWorkers = db.Workers.Where(w => w.IsActive).ToList();
 
             if (workerId.HasValue && activeWorkers.Any(w => w.ID == workerId.Value))
             {
-                ViewBag.WorkerID = new SelectList(activeWorkers, "ID", "LastName", workerId);
+                ViewBag.WorkerID = new SelectList(activeWorkers, "ID", "FullName", workerId);
             }
             else
             {
-                ViewBag.WorkerID = new SelectList(activeWorkers, "ID", "LastName");
+                ViewBag.WorkerID = new SelectList(activeWorkers, "ID", "FullName");
             }
 
             return View();
         }
+
         // POST: Appointment/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -76,11 +77,11 @@ namespace AppointmentSchedule.Controllers
             {
                 db.Appointments.Add(appointment);
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = appointment.ID }); ;
+                return RedirectToAction("Details", new { id = appointment.ID });
             }
 
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
-            ViewBag.WorkerID = new SelectList(db.Workers.Where(w => w.IsActive), "ID", "LastName", appointment.WorkerID);
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "FullName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers.Where(w => w.IsActive), "ID", "FullName", appointment.WorkerID);
 
             return View(appointment);
         }
@@ -97,14 +98,12 @@ namespace AppointmentSchedule.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
-            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "FullName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "FullName", appointment.WorkerID);
             return View(appointment);
         }
 
         // POST: Appointment/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,LengthInHours,TextBox")] Appointment appointment)
@@ -115,8 +114,8 @@ namespace AppointmentSchedule.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = appointment.ID });
             }
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "LastName", appointment.ClientID);
-            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "LastName", appointment.WorkerID);
+            ViewBag.ClientID = new SelectList(db.Clients, "ID", "FullName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "FullName", appointment.WorkerID);
             return View(appointment);
         }
 

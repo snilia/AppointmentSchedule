@@ -21,5 +21,10 @@ namespace AppointmentSchedule.Models
         [StringLength(10)]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }   // make sure to check format and all that stuff ///////////////TODO
+
+        //makes a read only property
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}";
+
     }
 }
