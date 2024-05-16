@@ -39,6 +39,56 @@ namespace AppointmentSchedule.DAL
             workers.ForEach(s => context.Workers.Add(s));
             context.SaveChanges();
 
+            var moreclients = new List<Client>
+            {
+                new Client{FirstName="Jessica",LastName="Moore",PhoneNumber="0526990908"},
+                new Client{FirstName="Chris",LastName="Taylor",PhoneNumber="0526990909"},
+                new Client{FirstName="Amanda",LastName="Anderson",PhoneNumber="0526990910"},
+                new Client{FirstName="Matthew",LastName="Thomas",PhoneNumber="0526990911"},
+                new Client{FirstName="Ashley",LastName="Jackson",PhoneNumber="0526990912"},
+                new Client{FirstName="Joshua",LastName="White",PhoneNumber="0526990913"},
+                new Client{FirstName="Jennifer",LastName="Harris",PhoneNumber="0526990914"},
+                new Client{FirstName="Daniel",LastName="Martin",PhoneNumber="0526990915"},
+                new Client{FirstName="Megan",LastName="Thompson",PhoneNumber="0526990916"},
+                new Client{FirstName="Andrew",LastName="Garcia",PhoneNumber="0526990917"},
+                new Client{FirstName="Lauren",LastName="Martinez",PhoneNumber="0526990918"},
+                new Client{FirstName="Ryan",LastName="Robinson",PhoneNumber="0526990919"},
+                new Client{FirstName="Rachel",LastName="Clark",PhoneNumber="0526990920"},
+                new Client{FirstName="Brandon",LastName="Rodriguez",PhoneNumber="0526990921"},
+                new Client{FirstName="Olivia",LastName="Lewis",PhoneNumber="0526990922"},
+                new Client{FirstName="Justin",LastName="Lee",PhoneNumber="0526990923"},
+                new Client{FirstName="Stephanie",LastName="Walker",PhoneNumber="0526990924"},
+                new Client{FirstName="Nathan",LastName="Hall",PhoneNumber="0526990925"},
+                new Client{FirstName="Hannah",LastName="Allen",PhoneNumber="0526990926"},
+                new Client{FirstName="Ethan",LastName="Young",PhoneNumber="0526990927"},
+                new Client{FirstName="Lauren",LastName="Hernandez",PhoneNumber="0526990928"},
+                new Client{FirstName="Christian",LastName="King",PhoneNumber="0526990929"},
+                new Client{FirstName="Natalie",LastName="Wright",PhoneNumber="0526990930"},
+                new Client{FirstName="Benjamin",LastName="Lopez",PhoneNumber="0526990931"},
+                new Client{FirstName="Emma",LastName="Hill",PhoneNumber="0526990932"},
+                new Client{FirstName="Alexander",LastName="Scott",PhoneNumber="0526990933"},
+                new Client{FirstName="Samantha",LastName="Green",PhoneNumber="0526990934"},
+                new Client{FirstName="Tyler",LastName="Adams",PhoneNumber="0526990935"},
+                new Client{FirstName="Victoria",LastName="Baker",PhoneNumber="0526990936"},
+                new Client{FirstName="Aaron",LastName="Gonzalez",PhoneNumber="0526990937"},
+                new Client{FirstName="Abigail",LastName="Nelson",PhoneNumber="0526990938"},
+                new Client{FirstName="Jonathan",LastName="Carter",PhoneNumber="0526990939"},
+                new Client{FirstName="Brianna",LastName="Mitchell",PhoneNumber="0526990940"},
+                new Client{FirstName="Samuel",LastName="Perez",PhoneNumber="0526990941"},
+                new Client{FirstName="Victoria",LastName="Roberts",PhoneNumber="0526990942"},
+                new Client{FirstName="Dylan",LastName="Turner",PhoneNumber="0526990943"},
+                new Client{FirstName="Sophia",LastName="Phillips",PhoneNumber="0526990944"},
+                new Client{FirstName="Zachary",LastName="Campbell",PhoneNumber="0526990945"},
+                new Client{FirstName="Grace",LastName="Parker",PhoneNumber="0526990946"},
+                new Client{FirstName="Logan",LastName="Evans",PhoneNumber="0526990947"},
+                new Client{FirstName="Alyssa",LastName="Edwards",PhoneNumber="0526990948"},
+                new Client{FirstName="Jack",LastName="Collins",PhoneNumber="0526990949"},
+                new Client{FirstName="Elizabeth",LastName="Stewart",PhoneNumber="0526990950"}
+            };
+
+            moreclients.ForEach(s => context.Clients.Add(s));
+            context.SaveChanges();
+
             var appointments = new List<Appointment>
             {
                 new Appointment{ClientID=1, WorkerID=8, Status=Status.Done, AppointmentDateTime=new DateTime(2020,3,11,9,43,00), LengthInHours=2, TextBox="First"},

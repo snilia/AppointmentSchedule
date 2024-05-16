@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AppointmentSchedule.DAL;
 using AppointmentSchedule.Models;
+using PagedList;
 
 namespace AppointmentSchedule.Controllers
 {
@@ -18,10 +19,54 @@ namespace AppointmentSchedule.Controllers
 
         // GET: Client
         //[Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Clients.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.LastNameSortParm = sortOrder == "last_name" ? "last_name_desc" : "last_name";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var clients = from c in db.Clients
+                          select c;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                clients = clients.Where(c => c.LastName.Contains(searchString)
+                                       || c.FirstName.Contains(searchString) || c.PhoneNumber.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    clients = clients.OrderByDescending(c => c.FirstName);
+                    break;
+                case "last_name":
+                    clients = clients.OrderBy(c => c.LastName);
+                    break;
+                case "last_name_desc":
+                    clients = clients.OrderByDescending(c => c.LastName);
+                    break;
+                default:
+                    clients = clients.OrderBy(c => c.FirstName);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(clients.ToPagedList(pageNumber, pageSize));
         }
+
+
 
         // GET: Client/Details/5
         public ActionResult Details(int? id)
