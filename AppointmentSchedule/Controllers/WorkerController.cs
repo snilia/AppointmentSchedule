@@ -89,7 +89,7 @@ namespace AppointmentSchedule.Controllers
             }
             return View(worker);
         }
-
+        /*
         // GET: Worker/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -115,7 +115,7 @@ namespace AppointmentSchedule.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActive)
+            @Html.Label("Active")
         </th>
         <th>Actions</th>
         <th>Schedule</th>
@@ -43,8 +43,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) 
         </td>
         <td>
             @Html.ActionLink("View Schedule", "WorkerSchedule", "Appointment", new { workerId = item.ID }, null)
