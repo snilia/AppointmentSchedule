@@ -9,6 +9,18 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<p>
+    @if (ViewBag.ShowInactive)
+    {
+        @Html.ActionLink("Show Active Workers", "Index", new { showInactive = false }, new { @class = "btn btn-primary" })
+    }
+    else
+    {
+        @Html.ActionLink("Show Inactive Workers", "Index", new { showInactive = true }, new { @class = "btn btn-primary" })
+    }
+</p>
+
 <table class="table">
     <tr>
         <th>

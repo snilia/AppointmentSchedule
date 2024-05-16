@@ -16,9 +16,11 @@ namespace AppointmentSchedule.Controllers
         private AppSchContext db = new AppSchContext();
 
         // GET: Worker
-        public ActionResult Index()
+        public ActionResult Index(bool showInactive = false)
         {
-            return View(db.Workers.ToList());
+            var workers = db.Workers.Where(w => w.IsActive != showInactive).ToList();
+            ViewBag.ShowInactive = showInactive;
+            return View(workers);
         }
 
         // GET: Worker/Details/5

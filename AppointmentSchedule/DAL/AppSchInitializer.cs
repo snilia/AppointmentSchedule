@@ -14,13 +14,13 @@ namespace AppointmentSchedule.DAL
         {
             var clients = new List<Client>
             {
-                new Client{FirstName="CFirst1",LastName="CLast1",PhoneNumber="0526990901"},
-                new Client{FirstName="CFirst2",LastName="CLast2",PhoneNumber="0526990902"},
-                new Client{FirstName="CFirst3",LastName="CLast3",PhoneNumber="0526990903"},
-                new Client{FirstName="CFirst4",LastName="CLast4",PhoneNumber="0526990904"},
-                new Client{FirstName="CFirst5",LastName="CLast5",PhoneNumber="0526990905"},
-                new Client{FirstName="CFirst6",LastName="CLast6",PhoneNumber="0526990906"},
-                new Client{FirstName="CFirst7",LastName="CLast7",PhoneNumber="0526990907"}
+                new Client{FirstName="ACFirst1",LastName="ACLast1",PhoneNumber="0526990901"},
+                new Client{FirstName="ACFirst2",LastName="ACLast2",PhoneNumber="0526990902"},
+                new Client{FirstName="ACFirst3",LastName="ACLast3",PhoneNumber="0526990903"},
+                new Client{FirstName="ACFirst4",LastName="ACLast4",PhoneNumber="0526990904"},
+                new Client{FirstName="ACFirst5",LastName="ACLast5",PhoneNumber="0526990905"},
+                new Client{FirstName="ACFirst6",LastName="ACLast6",PhoneNumber="0526990906"},
+                new Client{FirstName="ACFirst7",LastName="ACLast7",PhoneNumber="0526990907"}
             };
 
             clients.ForEach(s => context.Clients.Add(s));
@@ -31,8 +31,8 @@ namespace AppointmentSchedule.DAL
                 new Worker{FirstName="WAFirst1",LastName="WALast1",PhoneNumber="0545540001",IsActive=true},
                 new Worker{FirstName="WMFirst2",LastName="WMLast2",PhoneNumber="0545540002",IsActive=true},
                 new Worker{FirstName="WMFirst3",LastName="WMLast3",PhoneNumber="0545540003",IsActive=true},
-                new Worker{FirstName="WFirst4",LastName="WLast4",PhoneNumber="0545540004",IsActive=true},
-                new Worker{FirstName="WFirst5",LastName="WLast5",PhoneNumber="0545540005",IsActive=true},
+                new Worker{FirstName="WFirst4",LastName="WLast4",PhoneNumber="0545540004",IsActive=false},
+                new Worker{FirstName="WFirst5",LastName="WLast5",PhoneNumber="0545540005",IsActive=false},
                 new Worker{FirstName="WFirst6",LastName="WLast6",PhoneNumber="0545540006",IsActive=true},
                 new Worker{FirstName="WFirst7",LastName="WLast7",PhoneNumber="0545540007",IsActive=true}
             };
@@ -255,8 +255,8 @@ namespace AppointmentSchedule.DAL
             var users = new List<User>
             {
                 new User{IsActive=true,Username="Admin",Password=BCrypt.Net.BCrypt.HashPassword("Admin")},
-                new User{IsActive=true,Username="Username2",Password=BCrypt.Net.BCrypt.HashPassword("Password2")},
-                new User{IsActive=true,Username="Username3",Password=BCrypt.Net.BCrypt.HashPassword("Password3")},
+                new User{IsActive=false,Username="Username2",Password=BCrypt.Net.BCrypt.HashPassword("Password2")},
+                new User{IsActive=false,Username="Username3",Password=BCrypt.Net.BCrypt.HashPassword("Password3")},
                 new User{IsActive=true,Username="Username4",Password=BCrypt.Net.BCrypt.HashPassword("Password4")},
                 new User{IsActive=true,Username="RoleAdmin",Password=BCrypt.Net.BCrypt.HashPassword("RoleAdmin")},
                 new User{IsActive=true,Username="RoleUserControl",Password=BCrypt.Net.BCrypt.HashPassword("RoleUserControl")},

@@ -17,10 +17,11 @@ namespace AppointmentSchedule.Controllers
         private AppSchContext db = new AppSchContext();
 
         // GET: User
-        public ActionResult Index()
+        public ActionResult Index(bool showInactive = false)
         {
-            //list all users except for admin
-            var users = db.Users.Where(u => u.Username != "Admin").ToList();
+            //list all users except for admin, also decide if to show active or inactive users
+            var users = db.Users.Where(u => u.Username != "Admin" && u.IsActive != showInactive).ToList();
+            ViewBag.ShowInactive = showInactive;
             return View(users);
         }
 
