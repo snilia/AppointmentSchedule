@@ -18,9 +18,10 @@ namespace AppointmentSchedule.Models
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Required]
-        [StringLength(10)]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone number must contain 10 digits.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must contain 10 digits.")]
         [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }   // make sure to check format and all that stuff ///////////////TODO
+        public string PhoneNumber { get; set; }
 
         //makes a read only property
         [NotMapped]

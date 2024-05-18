@@ -14,11 +14,11 @@ namespace AppointmentSchedule.Models
     public class Appointment
     {
         public int ID { get; set; }
-        [ForeignKey("Worker")] //AIdded   //DELETE
+        [ForeignKey("Worker")] 
         public int? WorkerID { get; set; }
-        [ForeignKey("Client")] //AIdded   //DELETE
+        [ForeignKey("Client")] 
         public int? ClientID { get; set; }
-        public Status? Status { get; set; }  //question mark means it's nullable //////////////
+        public Status? Status { get; set; } 
         [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]

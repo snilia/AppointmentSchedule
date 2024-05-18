@@ -10,7 +10,7 @@ namespace AppointmentSchedule.Models
     {
         public int ID { get; set; }
         [ForeignKey("User")]
-        public int UserID { get; set; } //question mark means it's nullable check if i can delete the question mark, cuz i need them both to always be //////////////
+        public int UserID { get; set; } 
         [ForeignKey("Role")]
         public int RoleID { get; set; }
 
