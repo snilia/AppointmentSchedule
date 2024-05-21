@@ -61,8 +61,18 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("LimitedEdit", "LimitedEdit", new { id = Model.ID }) |
+    @if (User.IsInRole("Admin") || User.IsInRole("AppointmentControl"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+        @: |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
+        @: |
+    }
+    @if (User.IsInRole("Admin") || User.IsInRole("AppointmentEnd"))
+    {
+        @Html.ActionLink("Change Status", "LimitedEdit", new { id = Model.ID })
+        @:|
+    }
     @Html.ActionLink("Back to List", "Index") |
     @Html.ActionLink("worker's schedule", "WorkerSchedule", "Appointment", new { workerId = Model.WorkerID }, null) |
     @Html.ActionLink("Client's appointments", "ClientAppointments", "Appointment", new { clientId = Model.ClientID }, null)

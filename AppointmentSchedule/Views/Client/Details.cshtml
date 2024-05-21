@@ -38,6 +38,14 @@
 </div>
 <p>
     @Html.ActionLink("View Appointments", "ClientAppointments", "Appointment", new { clientId = Model.ID }, null) |
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+
+    @if (User.IsInRole("Admin") || User.IsInRole("ClientControl"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) 
+        @: |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID }) 
+        @: |
+    }
+
     @Html.ActionLink("Back to List", "Index")
 </p>

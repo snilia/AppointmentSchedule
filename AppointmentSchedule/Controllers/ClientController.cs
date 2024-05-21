@@ -12,13 +12,12 @@ using PagedList;
 
 namespace AppointmentSchedule.Controllers
 {
-    
+    [Authorize]
     public class ClientController : Controller
     {
         private AppSchContext db = new AppSchContext();
 
         // GET: Client
-        //[Authorize(Roles = "Admin")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -84,6 +83,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Client/Create
+        [Authorize(Roles = "Admin,ClientControl")]
         public ActionResult Create()
         {
             return View();
@@ -94,6 +94,7 @@ namespace AppointmentSchedule.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ClientControl")]
         public ActionResult Create([Bind(Include = "LastName,FirstName,PhoneNumber")] Client client)
         {
             if (ModelState.IsValid)
@@ -107,6 +108,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Client/Edit/5
+        [Authorize(Roles = "Admin,ClientControl")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -126,6 +128,7 @@ namespace AppointmentSchedule.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ClientControl")]
         public ActionResult Edit([Bind(Include = "ID,LastName,FirstName,PhoneNumber")] Client client)  
         {
             if (ModelState.IsValid)
@@ -138,6 +141,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Client/Delete/5
+        [Authorize(Roles = "Admin,ClientControl")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -155,6 +159,7 @@ namespace AppointmentSchedule.Controllers
         // POST: Client/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ClientControl")]
         public ActionResult DeleteConfirmed(int id)
         {
             Client client = db.Clients.Find(id);

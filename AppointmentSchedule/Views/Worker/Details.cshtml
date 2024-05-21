@@ -46,6 +46,12 @@
 </div>
 <p>
     @Html.ActionLink("View Schedule", "WorkerSchedule", "Appointment", new { workerId = Model.ID }, null) |
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+
+    @if (User.IsInRole("Admin") || User.IsInRole("WorkerControl"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+        @:|
+    }
+
     @Html.ActionLink("Back to List", "Index")
 </p>

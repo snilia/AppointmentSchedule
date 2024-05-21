@@ -5,8 +5,10 @@
 
 <h2>Appointments for @ViewBag.ClientName</h2>
 
-<button onclick="location.href='@Url.Action("Create", "Appointment", new { ClientID = ViewBag.ClientId })'">Add Appointment</button>
-
+@if (User.IsInRole("Admin") || User.IsInRole("AppointmentControl"))
+{
+    <button onclick="location.href='@Url.Action("Create", "Appointment", new { ClientID = ViewBag.ClientId })'">Add Appointment</button>
+}
 <div id='calendar'></div>
 
 @section Styles {

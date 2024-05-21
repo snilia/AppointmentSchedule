@@ -8,13 +8,16 @@
 <h2>Clients</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Admin") || User.IsInRole("ClientControl"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
 
 @using (Html.BeginForm("Index", "Client", FormMethod.Get))
 {
     <p>
-        Find by name or number: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        Find by name or phone: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -47,9 +50,7 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) 
             </td>
             <td>
                 @Html.ActionLink("View Appointments", "ClientAppointments", "Appointment", new { clientId = item.ID }, null)

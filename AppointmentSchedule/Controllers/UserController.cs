@@ -12,6 +12,7 @@ using AppointmentSchedule.ViewModels;
 
 namespace AppointmentSchedule.Controllers
 {
+    [Authorize(Roles = "Admin,UserControl")]
     public class UserController : Controller
     {
         private AppSchContext db = new AppSchContext();
@@ -100,7 +101,7 @@ namespace AppointmentSchedule.Controllers
             {
                 ID = user.ID,
                 Username = user.Username,
-                Password = null, // Password, not sure if to display////////////////////
+                Password = null,
                 IsActive = user.IsActive,
                 SelectedRoles = userRoles,
                 AvailableRoles = allRoles
@@ -134,7 +135,7 @@ namespace AppointmentSchedule.Controllers
                 // Remove all roles from user
                 foreach (var roleMap in user.UserRoleMaps.ToList())
                 {
-                    db.UserRoleMaps.Remove(roleMap); // Removing UserRoleMap entity completely
+                    db.UserRoleMaps.Remove(roleMap);
                 }
 
                 //add selected roles to user

@@ -11,6 +11,7 @@ using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.Controllers
 {
+    [Authorize]
     public class WorkerController : Controller
     {
         private AppSchContext db = new AppSchContext();
@@ -39,6 +40,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Worker/Create
+        [Authorize(Roles = "Admin,WorkerControl")]
         public ActionResult Create()
         {
             return View();
@@ -49,6 +51,7 @@ namespace AppointmentSchedule.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,WorkerControl")]
         public ActionResult Create([Bind(Include = "LastName,FirstName,PhoneNumber,IsActive")] Worker worker)
         {
             if (ModelState.IsValid)
@@ -62,6 +65,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Worker/Edit/5
+        [Authorize(Roles = "Admin,WorkerControl")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,6 +85,7 @@ namespace AppointmentSchedule.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,WorkerControl")]
         public ActionResult Edit([Bind(Include = "ID,LastName,FirstName,PhoneNumber,IsActive")] Worker worker)
         {
             if (ModelState.IsValid)
@@ -93,6 +98,7 @@ namespace AppointmentSchedule.Controllers
         }
         /*
         // GET: Worker/Delete/5
+        [Authorize(Roles = "Admin,WorkerControl")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +116,7 @@ namespace AppointmentSchedule.Controllers
         // POST: Worker/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,WorkerControl")]
         public ActionResult DeleteConfirmed(int id)
         {
             Worker worker = db.Workers.Find(id);

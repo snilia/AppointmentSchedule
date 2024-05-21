@@ -12,6 +12,7 @@ using AppointmentSchedule.ViewModels;
 
 namespace AppointmentSchedule.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         private AppSchContext db = new AppSchContext();
@@ -39,6 +40,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Appointment/Create
+        [Authorize(Roles = "Admin,AppointmentControl")]
         public ActionResult Create(int? workerId, int? clientId)
         {
             // All clients
@@ -71,6 +73,7 @@ namespace AppointmentSchedule.Controllers
         // POST: Appointment/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,AppointmentControl")]
         public ActionResult Create([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,LengthInHours,TextBox")] Appointment appointment)
         {
             if (ModelState.IsValid && db.Workers.Any(w => w.ID == appointment.WorkerID && w.IsActive))
@@ -87,6 +90,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Appointment/Edit/5
+        [Authorize(Roles = "Admin,AppointmentControl")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -106,6 +110,7 @@ namespace AppointmentSchedule.Controllers
         // POST: Appointment/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,AppointmentControl")]
         public ActionResult Edit([Bind(Include = "ID,WorkerID,ClientID,Status,AppointmentDateTime,LengthInHours,TextBox")] Appointment appointment)
         {
             if (ModelState.IsValid)
@@ -120,6 +125,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Appointment/LimitedEdit/5
+        [Authorize(Roles = "Admin,AppointmentEnd,AppointmentControl")]
         public ActionResult LimitedEdit(int? id)
         {
             if (id == null)
@@ -146,6 +152,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // POST: Appointment/LimitedEdit/5
+        [Authorize(Roles = "Admin,AppointmentEnd,AppointmentControl")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LimitedEdit(LimitedEditVM viewModel)
@@ -170,6 +177,7 @@ namespace AppointmentSchedule.Controllers
         }
 
         // GET: Appointment/Delete/5
+        [Authorize(Roles = "Admin,AppointmentControl")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -187,6 +195,7 @@ namespace AppointmentSchedule.Controllers
         // POST: Appointment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,AppointmentControl")]
         public ActionResult DeleteConfirmed(int id)
         {
             Appointment appointment = db.Appointments.Find(id);
