@@ -43,8 +43,11 @@ namespace AppointmentSchedule.Controllers
         [Authorize(Roles = "Admin,AppointmentControl")]
         public ActionResult Create(int? workerId, int? clientId)
         {
-            // All clients
-            var clients = db.Clients.ToList();
+            // All clients sorted by FirstName and LastName
+            var clients = db.Clients
+                .OrderBy(c => c.FirstName)
+                .ThenBy(c => c.LastName)
+                .ToList();
 
             if (clientId.HasValue && clients.Any(c => c.ID == clientId.Value))
             {
@@ -55,8 +58,13 @@ namespace AppointmentSchedule.Controllers
                 ViewBag.ClientID = new SelectList(clients, "ID", "FullName");
             }
 
-            // Active workers only
-            var activeWorkers = db.Workers.Where(w => w.IsActive).ToList();
+
+            // Active workers only, sorted by FirstName and LastName
+            var activeWorkers = db.Workers
+                .Where(w => w.IsActive)
+                .OrderBy(w => w.FirstName)
+                .ThenBy(w => w.LastName)
+                .ToList();
 
             if (workerId.HasValue && activeWorkers.Any(w => w.ID == workerId.Value))
             {
@@ -83,8 +91,8 @@ namespace AppointmentSchedule.Controllers
                 return RedirectToAction("Details", new { id = appointment.ID });
             }
 
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "FullName", appointment.ClientID);
-            ViewBag.WorkerID = new SelectList(db.Workers.Where(w => w.IsActive), "ID", "FullName", appointment.WorkerID);
+            ViewBag.ClientID = new SelectList(db.Clients.OrderBy(c => c.FirstName).ThenBy(c => c.LastName), "ID", "FullName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers.Where(w => w.IsActive).OrderBy(w => w.FirstName).ThenBy(w => w.LastName), "ID", "FullName", appointment.WorkerID);
 
             return View(appointment);
         }
@@ -102,8 +110,9 @@ namespace AppointmentSchedule.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "FullName", appointment.ClientID);
-            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "FullName", appointment.WorkerID);
+            ViewBag.ClientID = new SelectList(db.Clients.OrderBy(c => c.FirstName).ThenBy(c => c.LastName), "ID", "FullName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers.Where(w => w.IsActive).OrderBy(w => w.FirstName).ThenBy(w => w.LastName), "ID", "FullName", appointment.WorkerID);
+
             return View(appointment);
         }
 
@@ -119,8 +128,9 @@ namespace AppointmentSchedule.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = appointment.ID });
             }
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "FullName", appointment.ClientID);
-            ViewBag.WorkerID = new SelectList(db.Workers, "ID", "FullName", appointment.WorkerID);
+            ViewBag.ClientID = new SelectList(db.Clients.OrderBy(c => c.FirstName).ThenBy(c => c.LastName), "ID", "FullName", appointment.ClientID);
+            ViewBag.WorkerID = new SelectList(db.Workers.Where(w => w.IsActive).OrderBy(w => w.FirstName).ThenBy(w => w.LastName), "ID", "FullName", appointment.WorkerID);
+
             return View(appointment);
         }
 
