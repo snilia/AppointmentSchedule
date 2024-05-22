@@ -30,7 +30,7 @@ namespace AppointmentSchedule.Controllers
             var user = db.Users.FirstOrDefault(u => u.Username.ToLower() == model.Username.ToLower());
             
             //if username and passowrd are correct, and the user is active, log in (make a cookie)
-            if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.Password) && user.IsActive) 
+            if (user != null && !string.IsNullOrEmpty(model.Password) && BCrypt.Net.BCrypt.Verify(model.Password, user.Password) && user.IsActive) 
             {
                 FormsAuthentication.SetAuthCookie(model.Username, false);  //creates cookie
                 return RedirectToAction("Index", "Home");

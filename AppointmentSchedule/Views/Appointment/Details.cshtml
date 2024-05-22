@@ -73,7 +73,6 @@
         @Html.ActionLink("Change Status", "LimitedEdit", new { id = Model.ID })
         @:|
     }
-    @Html.ActionLink("Back to List", "Index") |
     @Html.ActionLink("worker's schedule", "WorkerSchedule", "Appointment", new { workerId = Model.WorkerID }, null) |
     @Html.ActionLink("Client's appointments", "ClientAppointments", "Appointment", new { clientId = Model.ClientID }, null)
 
