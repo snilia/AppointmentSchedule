@@ -90,8 +90,6 @@ namespace AppointmentSchedule.Controllers
         }
 
         // POST: Client/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,ClientControl")]
@@ -124,8 +122,6 @@ namespace AppointmentSchedule.Controllers
         }
 
         // POST: Client/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,ClientControl")]
@@ -139,7 +135,7 @@ namespace AppointmentSchedule.Controllers
             }
             return View(client);
         }
-
+        /*
         // GET: Client/Delete/5
         [Authorize(Roles = "Admin,ClientControl")]
         public ActionResult Delete(int? id)
@@ -167,7 +163,7 @@ namespace AppointmentSchedule.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

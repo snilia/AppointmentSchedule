@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Workers</h2>
 
 <p>
     @if (User.IsInRole("Admin") || User.IsInRole("WorkerControl"))
     {
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create new worker", "Create")
     }
 </p>
 

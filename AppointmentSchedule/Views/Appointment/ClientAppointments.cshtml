@@ -7,7 +7,7 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("AppointmentControl"))
 {
-    <button onclick="location.href='@Url.Action("Create", "Appointment", new { ClientID = ViewBag.ClientId })'">Add Appointment</button>
+    <button onclick="location.href='@Url.Action("Create", "Appointment", new { ClientID = ViewBag.ClientId })'" style="margin-bottom: 20px;">Add Appointment</button>
 }
 <div id='calendar'></div>
 

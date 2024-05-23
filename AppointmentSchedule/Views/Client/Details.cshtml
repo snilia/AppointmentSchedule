@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Client details</h2>
 
 <div>
-    <h4>Client</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -42,8 +42,6 @@
     @if (User.IsInRole("Admin") || User.IsInRole("ClientControl"))
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) 
-        @: |
-        @Html.ActionLink("Delete", "Delete", new { id = Model.ID }) 
         @: |
     }
 
