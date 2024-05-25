@@ -171,6 +171,7 @@
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Tests.cs" />
+    <Compile Include="ViewModels\ChangePasswordVM.cs" />
     <Compile Include="ViewModels\LimitedEditVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\UserDetailsVM.cs" />
@@ -237,6 +238,8 @@
     <Content Include="Views\Appointment\WorkerSchedule.cshtml" />
     <Content Include="Views\Appointment\LimitedEdit.cshtml" />
     <Content Include="Views\Appointment\ClientAppointments.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

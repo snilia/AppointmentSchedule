@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Profile";
+    var username = ViewBag.Username;
+}
+
+<h2>Hello @username</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Change Password", "ChangePassword", "Account")
+</p>
+
+<p>For further help, please contact the system administrator.</p>
+
+<p>
+    @Html.ActionLink("Back to Homepage", "Index", "Home")
+</p>
