@@ -18,6 +18,7 @@ namespace AppointmentSchedule.Controllers
         private AppSchContext db = new AppSchContext();
 
         // GET: Appointment
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var appointments = db.Appointments.Include(a => a.Client).Include(a => a.Worker);
@@ -211,7 +212,7 @@ namespace AppointmentSchedule.Controllers
             Appointment appointment = db.Appointments.Find(id);
             db.Appointments.Remove(appointment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet] 

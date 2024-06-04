@@ -4,7 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>User list</h2>
+@if (ViewBag.ShowInactive)
+{
+    <h2>Inactive Users</h2>
+}
+else
+{
+    <h2>Users</h2>
+}
+
 
 <p>
     @Html.ActionLink("Add New User", "Create")
@@ -35,22 +43,23 @@
         <th>Actions</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            ********
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                ********
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
