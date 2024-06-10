@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using AppointmentSchedule.DAL;
 using AppointmentSchedule.Models;
@@ -55,8 +51,6 @@ namespace AppointmentSchedule.Controllers
         }
 
         // POST: User/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IsActive,Username,Password")] User user)
@@ -94,7 +88,7 @@ namespace AppointmentSchedule.Controllers
             {
                 Value = role.RoleName,
                 Text = role.RoleName,
-                Selected = userRoles.Contains(role.RoleName)  // Set Selected based on whether the role is one of the user's current roles////////
+                Selected = userRoles.Contains(role.RoleName)  //Set Selected based on whether the role is one of the user's current roles
             }).ToList();
 
             var viewModel = new UserEditVM
@@ -125,7 +119,6 @@ namespace AppointmentSchedule.Controllers
 
                 // Update user details
                 user.Username = viewModel.Username;
-                //user.Password = viewModel.Password; // Password, not sure if to have it here/////////////
                 if (!string.IsNullOrEmpty(viewModel.Password))
                 {
                     user.Password = BCrypt.Net.BCrypt.HashPassword(viewModel.Password); //hash password
@@ -160,33 +153,6 @@ namespace AppointmentSchedule.Controllers
             return View(viewModel);
         }
 
-        /*  no deleting users
-        // GET: User/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: User/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

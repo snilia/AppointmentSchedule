@@ -1,16 +1,13 @@
 ﻿using AppointmentSchedule.DAL;
 using AppointmentSchedule.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Security;
 
 namespace AppointmentSchedule.Infrastructure
 {
     public class UsersRoleProvider : RoleProvider
     {
-        //private AppSchContext db = new AppSchContext();
         public override string ApplicationName
         {
             get
@@ -67,14 +64,6 @@ namespace AppointmentSchedule.Infrastructure
 
         public override string[] GetRolesForUser(string username)
         {
-            /*    var userRoles = (from user in db.Users ////////// second should be better ///////////////////
-                                 join roleMapping in db.UserRoleMaps
-                                 on user.ID equals roleMapping.UserID
-                                 join role in db.Roles
-                                 on roleMapping.RoleID equals role.ID
-                                 where user.Username == username
-                                 select role.RoleName).ToArray();
-                return userRoles; */
             using (var context = new AppSchContext()) 
             {
                 var user = context.Users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));

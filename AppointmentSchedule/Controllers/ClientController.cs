@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using AppointmentSchedule.DAL;
 using AppointmentSchedule.Models;
@@ -135,35 +133,7 @@ namespace AppointmentSchedule.Controllers
             }
             return View(client);
         }
-        /*
-        // GET: Client/Delete/5
-        [Authorize(Roles = "Admin,ClientControl")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return HttpNotFound();
-            }
-            return View(client);
-        }
 
-        // POST: Client/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,ClientControl")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)

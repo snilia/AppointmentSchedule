@@ -12,7 +12,7 @@ namespace AppointmentSchedule.ViewModels
         public int ID { get; set; }
         public string Username { get; set; }
         [DataType(DataType.Password)]
-        public string Password { get; set; }  // Password, decide what to do
+        public string Password { get; set; }
         public bool IsActive { get; set; }
         public List<string> SelectedRoles { get; set; }
         public IEnumerable<SelectListItem> AvailableRoles { get; set; }

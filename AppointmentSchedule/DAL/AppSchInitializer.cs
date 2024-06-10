@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
 using AppointmentSchedule.Models;
 
 namespace AppointmentSchedule.DAL
 {
     public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppSchContext>
     //public class AppSchInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppSchContext>
+    //public class AppSchInitializer : System.Data.Entity.CreateDatabaseIfNotExists<AppSchContext>
     {
         protected override void Seed(AppSchContext context)
         {
@@ -536,7 +534,7 @@ namespace AppointmentSchedule.DAL
 
             var users = new List<User>
             {
-                new User{IsActive=true,Username="Admin",Password=BCrypt.Net.BCrypt.HashPassword("Admin")},
+                new User{IsActive=true,Username="Admin",Password=BCrypt.Net.BCrypt.HashPassword("Admin")},//the admin account, used for the presentation
                 new User{IsActive=true,Username="Dentist",Password=BCrypt.Net.BCrypt.HashPassword("DentistPassword")},
                 new User{IsActive=true,Username="Assistant",Password=BCrypt.Net.BCrypt.HashPassword("AssistantPassword")},
                 new User{IsActive=true,Username="Secretary",Password=BCrypt.Net.BCrypt.HashPassword("Secretary")},

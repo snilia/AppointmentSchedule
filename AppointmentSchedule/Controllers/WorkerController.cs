@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using AppointmentSchedule.DAL;
 using AppointmentSchedule.Models;
@@ -47,8 +44,6 @@ namespace AppointmentSchedule.Controllers
         }
 
         // POST: Worker/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,WorkerControl")]
@@ -81,8 +76,6 @@ namespace AppointmentSchedule.Controllers
         }
 
         // POST: Worker/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,WorkerControl")]
@@ -96,35 +89,7 @@ namespace AppointmentSchedule.Controllers
             }
             return View(worker);
         }
-        /*
-        // GET: Worker/Delete/5
-        [Authorize(Roles = "Admin,WorkerControl")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Worker worker = db.Workers.Find(id);
-            if (worker == null)
-            {
-                return HttpNotFound();
-            }
-            return View(worker);
-        }
 
-        // POST: Worker/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,WorkerControl")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Worker worker = db.Workers.Find(id);
-            db.Workers.Remove(worker);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)
